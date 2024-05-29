@@ -5,8 +5,7 @@ import Navbar from "./components/layout/Navbar";
 function App() {
   // Use the 'useEffect' hook to perform side effects in function components
   useEffect(() => {
-    // Define an asynchronous function 'fetchData' to fetch data from the GitHub
-    API;
+    // Define an asynchronous function 'fetchData' to fetch data from the GitHub API;
     const fetchData = async () => {
       try {
         // Use the 'axios' library to make a GET request to the GitHub API endpoint;
