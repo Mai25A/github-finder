@@ -1,24 +1,25 @@
 // App.js
 import React from "react";
-import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
-import Navbar from "./components/layout/Navbar";
-import Search from "./components/users/Search";
-import NotFound from "./components/pages/NotFound";
-import About from "./components/pages/About";
-import Users from "./components/users/Users";
 import Home from "./components/layout/Home";
+import Navbar from "./components/layout/Navbar";
+import { ThemeProvider } from "./components/pages/ThemeContext";
+import { SearchProvider } from "./components/users/SearchContext";
+
 const App = () => {
   return (
-    <div className="App">
-      <Router>
-        <Navbar />
-        <div className="container">
-          <h1>GitHub Users Data</h1>
-          <Home />
-        </div>
-      </Router>
-    </div>
+    <ThemeProvider>
+      <SearchProvider>
+        <Router>
+          <div className="App">
+            <Navbar />
+            <Home />
+          </div>
+        </Router>
+      </SearchProvider>
+    </ThemeProvider>
   );
 };
+
 export default App;

@@ -1,8 +1,8 @@
-import React, { Fragment, useEffect, useState, useContext } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import Repos from '../repos/Repos';
-import { getUser, getUserRepos } from '../../api';
-import { SearchContext } from './SearchContext';
+import React, { Fragment, useEffect, useState, useContext } from "react";
+import { Link, useParams } from "react-router-dom";
+import Repos from "../repos/Repos";
+import { getUser, getUserRepos } from "../../api";
+import { SearchContext } from "./SearchContext";
 
 const User = () => {
   const { id } = useParams();
@@ -18,7 +18,7 @@ const User = () => {
         const userRepos = await getUserRepos(id);
         setRepos(userRepos);
       } catch (error) {
-        console.error('Error fetching data:', error.message);
+        console.error("Error fetching data:", error.message);
       }
     };
 
