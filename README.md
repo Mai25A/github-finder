@@ -76,3 +76,5 @@ npm install react-router-dom@5.2.0
 ## 
 npm install prop-types
 npm install antd
+##
+npm create vite@latest
