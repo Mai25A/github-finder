@@ -11,7 +11,7 @@ const Navbar = () => {
       <h1>
         <i className="fab fa-github" /> GitHub Finder
       </h1>
-      <ul>
+      <ul style={{marginLeft:"70%"}}>
         <li>
           <Link to="/">Home</Link>
         </li>
