@@ -449,11 +449,11 @@ table th {
 }
 
 body {
-  transition: background-color 0.5s ease;
+  transition: background-color 0.2s ease;
 }
 
 .navbar {
-  transition: background-color 0.5s ease;
+  transition: background-color 0.2s ease;
 }
 
 .bg-success {
@@ -465,12 +465,12 @@ body {
 }
 
 body.light {
-  background-color: #f8f9fa;
+  background-color: #f4f4f4;
   color: #212529;
 }
 
 body.dark {
-  background-color: #343a40;
+  background-color: #3b3e40;
   color: #f8f9fa;
 }
 
