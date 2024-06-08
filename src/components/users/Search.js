@@ -1,7 +1,7 @@
 // Search.js
 import axios from "axios";
 import React, { useState } from "react";
-import Users from "../users/Users";
+import Users from "./Users";
 const Search = () => {
   const [text, setText] = useState("");
   const [users, setUsers] = useState([]);

@@ -71,3 +71,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ## install axios
 npm install axios
+## install react route dom
+npm install react-router-dom@5.2.0
+## 
+npm install prop-types
