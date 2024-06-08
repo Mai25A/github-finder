@@ -1,44 +1,54 @@
-// Search.js
-import axios from "axios";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import Users from "./Users";
+import { SearchContext } from "./SearchContext";
+import { useHistory, useLocation } from "react-router-dom";
+import { searchUsers } from "../../api";
+import { message } from "antd";
+
 const Search = () => {
-  const [text, setText] = useState("");
+  const history = useHistory();
+  const location = useLocation();
+  const { query, setQuery } = useContext(SearchContext);
   const [users, setUsers] = useState([]);
-  const searchUsers = async (text) => {
-    try {
-      const response = await axios.get(
-        `https://api.github.com/search/users?q=${text} `
-      );
-      setUsers(response.data.items);
-    } catch (error) {
-      console.error("Error fetching data:", error);
+  const inputRef = useRef(null);
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const queryParam = params.get("q");
+    if (queryParam) {
+      setQuery(queryParam);
+      searchUsers(queryParam).then((result) => setUsers(result));
+    } else {
+      setUsers([]);
+    }
+  }, [location.search, setQuery]);
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (query === "") {
+      message.error("Please enter the information");
+    } else {
+      history.push(`/?q=${query}`);
+      const userData = await searchUsers(query);
+      setUsers(userData);
     }
   };
   const clearUsers = () => {
     setUsers([]);
+    setQuery("");
+    history.push("/");
+    inputRef.current.focus();
   };
-  const onSubmit = (e) => {
-    e.preventDefault();
-    if (text === "") {
-      alert("Please enter something");
-    } else {
-      searchUsers(text);
-      setText("");
-    }
-  };
-  const onChange = (e) => setText(e.target.value);
+  const onChange = (e) => setQuery(e.target.value);
   return (
     <div>
       <form onSubmit={onSubmit} className="form">
         <input
+          ref={inputRef}
           type="text"
           name="text"
           placeholder="Search User"
-          value={text}
+          value={query}
           onChange={onChange}
         />
-
         <input
           type="submit"
           value="Search"
