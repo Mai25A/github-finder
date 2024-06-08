@@ -1,37 +1,34 @@
-// User.js
-import axios from "axios";
-import React, { Fragment, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom/cjs/react-router-dom.min";
-import Repos from "../repos/Repos";
+import React, { Fragment, useEffect, useState, useContext } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import Repos from '../repos/Repos';
+import { getUser, getUserRepos } from '../../api';
+import { SearchContext } from './SearchContext';
+
 const User = () => {
   const { id } = useParams();
   const [user, setUser] = useState({});
   const [repos, setRepos] = useState([]);
-  const getUser = async (username) => {
-    try {
-      const response = await axios.get(
-        `https://api.github.com/users/${username}`
-      );
-      const data = response.data;
-      setUser(data);
-    } catch (error) {
-      console.error("Error fetching data:", error.message);
-    }
-  };
-  const getUserRepos = async (id) => {
-    // To be completed ...
-    // This is the small exercise for students
-    // Students will write the code to fetch the user's repositories
-    // Then display the repositories in the User component
-  };
+  const { query } = useContext(SearchContext);
+
   useEffect(() => {
-    getUser(id);
-    getUserRepos(id);
-  }, []);
+    const fetchData = async () => {
+      try {
+        const userData = await getUser(id);
+        setUser(userData);
+        const userRepos = await getUserRepos(id);
+        setRepos(userRepos);
+      } catch (error) {
+        console.error('Error fetching data:', error.message);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
   const {
     name,
     avatar_url,
-    location,
+    location: userLocation,
     bio,
     company,
     blog,
@@ -43,9 +40,10 @@ const User = () => {
     public_gists,
     hireable,
   } = user;
+
   return (
     <Fragment>
-      <Link to="/" className="btn btn-light">
+      <Link to={`/?q=${query}`} className="btn btn-light">
         Back to Search
       </Link>
       Hireable:{" "}
@@ -63,7 +61,7 @@ const User = () => {
             style={{ width: "150px" }}
           />
           <h1>{name}</h1>
-          <p>{location}</p>
+          <p>{userLocation}</p>
         </div>
         <div>
           {bio && (
@@ -120,4 +118,5 @@ const User = () => {
     </Fragment>
   );
 };
+
 export default User;
